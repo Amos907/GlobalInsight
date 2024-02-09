@@ -14,6 +14,7 @@ module.exports = {
 
         primary: "#c10000",
         secondary: "#EAEAEA",
+        amber: "#F2BB05",
       },
     },
   },
