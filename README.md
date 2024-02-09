@@ -14,18 +14,24 @@ To get started with the project, follow these steps:
 
 2. **Install Dependencies:**
    npm install
-   # or
+
+   #### or
+
    yarn
-   # or
+
+   #### or
+
    pnpm install
-   # or
+
+   #### or
+
    bun install
 
 3. **Run the Development Server:**
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
+   npm run dev
+   #### or
+   yarn dev
+   #### or
+   pnpm dev
+   #### or
+   bun dev
