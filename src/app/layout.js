@@ -1,4 +1,8 @@
+"use client";
+
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
+import { store } from "@/redux/store";
+import { Provider } from "react-redux";
 
 import "./globals.css";
 
@@ -14,7 +18,9 @@ export default function RootLayout({ children }) {
         content="Explore the world's countries, their cultures, demographics, and more."
       />
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <Provider store={store}>{children}</Provider>
+        </MantineProvider>
       </body>
     </html>
   );

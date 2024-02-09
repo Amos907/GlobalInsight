@@ -1,15 +1,27 @@
 "use client";
 
+import React, { useEffect } from "react";
 import Image from "next/image";
 import TopNav from "./components/layout/top-nav";
-import { faker } from "@faker-js/faker";
+import { Loader } from "@mantine/core";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchAllCountries } from "@/redux/features/countrySlice";
 
 import { Autocomplete } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
 export default function Home() {
-  const consume_data = process.env.NEXT_PUBLIC_FAKER_DATA_HEAVY === "true";
+  const dispatch = useDispatch();
+  const { allCountries, requestStatus } = useSelector((state) => state.country);
+
+  useEffect(() => {
+    if (requestStatus.fetchAllCountriesStatus === "idle") {
+      dispatch(fetchAllCountries());
+    }
+  }, [dispatch, requestStatus.fetchAllCountriesStatus]);
+
   return (
     <main className="lg:mx-40">
       <TopNav />
@@ -49,42 +61,57 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mx-1 md:grid-cols-4">
-        {faker.datatype.array(20).map((item) => (
-          <div key={item} className="bg-white rounded-md p-2 border">
-            <div className="relative h-48 lg:h-56 mx-auto">
-              <figure>
-                <Image
-                  className="rounded border-none"
-                  src={faker.image.nature(512, 512, consume_data)}
-                  fill
-                  sizes="100vw"
-                  alt=""
-                />
-              </figure>
-            </div>
-
-            <div className="space-y-2 mt-2">
-              <div className="max-h-20 text-center">
-                <p className="text-sm font-sans font-semibold">
-                  {faker.lorem.word(7)}
-                </p>
-              </div>
-
-              <div className="flex justify-center pb-2">
-                <Link
-                  href={`/country/${faker.number.int(1000)}`}
-                  className="pt-2"
+      {requestStatus.fetchAllCountriesStatus == "success" ? (
+        <div>
+          {allCountries.length > 0 ? (
+            <div className="grid grid-cols-2 gap-2 mx-1 md:grid-cols-4">
+              {allCountries.map((country) => (
+                <div
+                  key={country.name.common}
+                  className="bg-white rounded-md p-2 border"
                 >
-                  <div className="bg-amber px-4 py-1 rounded-sm text-gray-700">
-                    View
+                  <div className="relative h-48 lg:h-56 mx-auto">
+                    <figure>
+                      <Image
+                        className="rounded border-none"
+                        src={country.flags.png}
+                        fill
+                        sizes="100vw"
+                        alt=""
+                      />
+                    </figure>
                   </div>
-                </Link>
-              </div>
+
+                  <div className="space-y-2 mt-2">
+                    <div className="max-h-20 text-center">
+                      <p className="text-sm font-sans font-semibold">
+                        {country.name.common}
+                      </p>
+                    </div>
+
+                    <div className="flex justify-center pb-2">
+                      <Link
+                        href={`/country/${country.name.common}?subregion=${country.subregion}`}
+                        className="pt-2"
+                      >
+                        <div className="bg-amber px-4 py-1 rounded-sm text-gray-700">
+                          View
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
-      </div>
+          ) : (
+            <></>
+          )}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center">
+          <Loader color="blue" />
+        </div>
+      )}
     </main>
   );
 }
