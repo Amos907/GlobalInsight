@@ -5,11 +5,31 @@ import TopNav from "./components/layout/top-nav";
 import { faker } from "@faker-js/faker";
 import Link from "next/link";
 
+import { Autocomplete } from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
+
 export default function Home() {
   const consume_data = process.env.NEXT_PUBLIC_FAKER_DATA_HEAVY === "true";
   return (
     <main className="lg:mx-40">
       <TopNav />
+
+      {/* <div className="flex justify-center">
+        <div className="rounded-lg flex justify-between items-center w-96 h-10 my-auto bg-white shadow-lg space-y-4">
+          <div className="flex-grow justify-center pl-4">
+            <Autocomplete
+              variant="unstyled"
+              radius={0}
+              placeholder="Search Country"
+              data={["Merchant 1"]}
+            />
+          </div>
+
+          <div className="rounded-r-lg bg-blue cursor-pointer pt-1">
+            <IconSearch size="2em" className="p-1" />
+          </div>
+        </div>
+      </div> */}
 
       <div className="text-center space-y-4 py-4 font-bold px-4 md:flex justify-center">
         <div>
@@ -52,7 +72,10 @@ export default function Home() {
               </div>
 
               <div className="flex justify-center pb-2">
-                <Link href="" className="pt-2">
+                <Link
+                  href={`/country/${faker.number.int(1000)}`}
+                  className="pt-2"
+                >
                   <div className="bg-amber px-4 py-1 rounded-sm text-gray-700">
                     View
                   </div>
