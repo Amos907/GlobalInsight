@@ -13,11 +13,12 @@ To get started with the project, follow these steps:
    cd <project-directory>
 
 2. **Install Dependencies:**
+
    npm install
 
    #### or
 
-   yarn
+   yarn install
 
    #### or
 
@@ -28,10 +29,17 @@ To get started with the project, follow these steps:
    bun install
 
 3. **Run the Development Server:**
+
    npm run dev
+
    #### or
+
    yarn dev
+
    #### or
+
    pnpm dev
+
    #### or
+
    bun dev
