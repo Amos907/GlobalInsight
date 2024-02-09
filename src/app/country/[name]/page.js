@@ -21,7 +21,7 @@ const Country = ({ params }) => {
   );
   const searchParams = useSearchParams();
 
-  const subRegion = searchParams.get("subregion");
+  const subRegion = searchParams.get("subregion") || "Eastern Africa";
 
   const country_name = params.name;
 
@@ -39,7 +39,8 @@ const Country = ({ params }) => {
       <TopNav />
 
       <div>
-        {requestStatus.fetchCountryStatus === "success" ? (
+        {requestStatus.fetchCountryStatus === "success" &&
+        requestStatus.fetchSubRegionCountriesStatus === "success" ? (
           <div>
             {Object.keys(country[0]).length > 0 ? (
               <div>
@@ -119,45 +120,38 @@ const Country = ({ params }) => {
                       Related Countries
                     </h1>
                     <div className="">
-                      {requestStatus.fetchSubRegionCountriesStatus ===
-                      "success" ? (
-                        <div>
-                          {subRegionCountries.length > 0 ? (
-                            <div className="no-scrollbar flex overflow-x-scroll">
-                              {subRegionCountries.map((country) => (
-                                <div className="" key={country}>
-                                  <figure className="h-40 ml-2 mt-1 w-40 relative cursor-pointer">
-                                    <Link
-                                      href={`/country/${country.name.common}?subregion=${country.subregion}`}
-                                    >
-                                      <Image
-                                        className="rounded-lg "
-                                        src={country.flags.png}
-                                        style={{ objectFit: "cover" }}
-                                        fill
-                                        sizes="100vw"
-                                        alt=""
-                                      />
-                                    </Link>
-                                  </figure>
+                      <div>
+                        {subRegionCountries.length > 0 ? (
+                          <div className="no-scrollbar flex overflow-x-scroll">
+                            {subRegionCountries.map((country) => (
+                              <div className="" key={country}>
+                                <figure className="h-40 ml-2 mt-1 w-40 relative cursor-pointer">
+                                  <Link
+                                    href={`/country/${country.name.common}?subregion=${country.subregion}`}
+                                  >
+                                    <Image
+                                      className="rounded-lg "
+                                      src={country.flags.png}
+                                      style={{ objectFit: "cover" }}
+                                      fill
+                                      sizes="100vw"
+                                      alt=""
+                                    />
+                                  </Link>
+                                </figure>
 
-                                  <div className="text-center py-2">
-                                    <p className="text-sm font-sans font-semibold capitalize">
-                                      {country.name.common}
-                                    </p>
-                                  </div>
+                                <div className="text-center py-2">
+                                  <p className="text-sm font-sans font-semibold capitalize">
+                                    {country.name.common}
+                                  </p>
                                 </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                      ) : (
-                        <>
-                          <Loader />
-                        </>
-                      )}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -167,7 +161,7 @@ const Country = ({ params }) => {
             )}
           </div>
         ) : (
-          <div className="flex">
+          <div className="flex justify-center items-center pt-3">
             <Loader color="blue" />
           </div>
         )}

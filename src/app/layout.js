@@ -4,6 +4,7 @@ import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";
 
+import "@mantine/core/styles.css";
 import "./globals.css";
 
 export default function RootLayout({ children }) {
