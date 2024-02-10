@@ -12,7 +12,8 @@ import {
   fetchSubRegionCountries,
 } from "@/redux/features/countrySlice";
 
-import TopNav from "@/app/components/layout/top-nav";
+import MainWrapper from "@/app/components/main-wrapper";
+import RequestError from "@/app/components/request-error";
 
 const Country = ({ params }) => {
   const dispatch = useDispatch();
@@ -35,9 +36,7 @@ const Country = ({ params }) => {
     }
   }, [dispatch, country_name, subRegion]);
   return (
-    <main className="lg:mx-40">
-      <TopNav />
-
+    <MainWrapper>
       <div>
         {requestStatus.fetchCountryStatus === "success" &&
         requestStatus.fetchSubRegionCountriesStatus === "success" ? (
@@ -161,12 +160,19 @@ const Country = ({ params }) => {
             )}
           </div>
         ) : (
-          <div className="flex justify-center items-center pt-3">
-            <Loader color="blue" />
+          <div>
+            {requestStatus.fetchCountryStatus === "failled" ||
+            requestStatus.fetchSubRegionCountriesStatus === "failled" ? (
+              <RequestError />
+            ) : (
+              <div className="flex justify-center items-center pt-3">
+                <Loader color="blue" />
+              </div>
+            )}
           </div>
         )}
       </div>
-    </main>
+    </MainWrapper>
   );
 };
 
