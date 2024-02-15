@@ -14,6 +14,8 @@ import {
 
 import MainWrapper from "@/app/components/main-wrapper";
 import RequestError from "@/app/components/request-error";
+import { InfoWidget, CustomInfoWidget } from "@/app/components/info-widget";
+import HorizScrollContainer from "@/app/components/horiz-scroll-container";
 
 const Country = ({ params }) => {
   const dispatch = useDispatch();
@@ -55,62 +57,30 @@ const Country = ({ params }) => {
                       />
                     </figure>
                   </div>
-                  <div className="flex space-x-2 items-center justify-center my-2">
-                    <p className="text-gray-700">Country Name:-</p>
-                    <p className="text-xl font-bold font-sans text-primary capitalize">
-                      {country[0].name.common}
-                    </p>
-                  </div>
 
-                  <div className="flex space-x-2 items-center justify-center my-2">
-                    <p className="text-gray-700">Capital:-</p>
-                    <p className="text-xl font-bold font-sans text-primary capitalize">
-                      {country[0].capital[0]}
-                    </p>
-                  </div>
+                  <InfoWidget
+                    title={"Country Name"}
+                    value={country[0].name.common}
+                  />
+                  <InfoWidget title={"Capital"} value={country[0].capital[0]} />
+                  <InfoWidget
+                    title={"Population"}
+                    value={country[0].population}
+                  />
+                  <InfoWidget
+                    title={"Continent"}
+                    value={country[0].continents[0]}
+                  />
+                  <InfoWidget title={"Region"} value={country[0].region} />
+                  <InfoWidget
+                    title={"Sub-Region"}
+                    value={country[0].subregion}
+                  />
 
-                  <div className="flex space-x-2 items-center justify-center my-2">
-                    <p className="text-gray-700">Population:-</p>
-                    <p className="text-xl font-bold font-sans text-primary capitalize">
-                      {country[0].population}
-                    </p>
-                  </div>
-
-                  <div className="flex space-x-2 items-center justify-center my-2">
-                    <p className="text-gray-700">Continent:-</p>
-                    <p className="text-xl font-bold font-sans text-primary capitalize">
-                      {country[0].continents[0]}
-                    </p>
-                  </div>
-
-                  <div className="flex space-x-2 items-center justify-center my-2">
-                    <p className="text-gray-700">Region:-</p>
-                    <p className="text-xl font-bold font-sans text-primary capitalize">
-                      {country[0].region}
-                    </p>
-                  </div>
-
-                  <div className="flex space-x-2 items-center justify-center my-2">
-                    <p className="text-gray-700">Sub-Region:-</p>
-                    <p className="text-xl font-bold font-sans text-primary capitalize">
-                      {country[0].subregion}
-                    </p>
-                  </div>
-
-                  <div className="flex space-x-2 items-center justify-center my-2">
-                    <p className="text-gray-700">Coat of Arms:-</p>
-                    <div className="relative h-24 w-24">
-                      <figure>
-                        <Image
-                          className="rounded border-none"
-                          src={country[0].coatOfArms.png}
-                          fill
-                          sizes="100vw"
-                          alt=""
-                        />
-                      </figure>
-                    </div>
-                  </div>
+                  <CustomInfoWidget
+                    title={"Coat of Arms"}
+                    value={country[0].coatOfArms.png}
+                  />
                 </div>
 
                 <div className="my-2">
@@ -118,39 +88,37 @@ const Country = ({ params }) => {
                     <h1 className="text-gray-700 p-3 text-xl font-bold capitalize">
                       Related Countries
                     </h1>
-                    <div className="">
-                      <div>
-                        {subRegionCountries.length > 0 ? (
-                          <div className="no-scrollbar flex overflow-x-scroll">
-                            {subRegionCountries.map((country) => (
-                              <div className="" key={country}>
+                    <div>
+                      {subRegionCountries.length > 0 ? (
+                        <HorizScrollContainer>
+                          {subRegionCountries.map((country) => (
+                            <div key={country}>
+                              <Link
+                                href={`/country/${country.name.common}?subregion=${country.subregion}`}
+                              >
                                 <figure className="h-40 ml-2 mt-1 w-40 relative cursor-pointer">
-                                  <Link
-                                    href={`/country/${country.name.common}?subregion=${country.subregion}`}
-                                  >
-                                    <Image
-                                      className="rounded-lg "
-                                      src={country.flags.png}
-                                      style={{ objectFit: "cover" }}
-                                      fill
-                                      sizes="100vw"
-                                      alt=""
-                                    />
-                                  </Link>
+                                  <Image
+                                    className="rounded-lg "
+                                    src={country.flags.png}
+                                    style={{ objectFit: "cover" }}
+                                    fill
+                                    sizes="100vw"
+                                    alt=""
+                                  />
                                 </figure>
+                              </Link>
 
-                                <div className="text-center py-2">
-                                  <p className="text-sm font-sans font-semibold capitalize">
-                                    {country.name.common}
-                                  </p>
-                                </div>
+                              <div className="text-center py-2">
+                                <p className="text-sm font-sans font-semibold capitalize">
+                                  {country.name.common}
+                                </p>
                               </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
+                            </div>
+                          ))}
+                        </HorizScrollContainer>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </div>
