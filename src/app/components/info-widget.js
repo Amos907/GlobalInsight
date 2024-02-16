@@ -15,18 +15,20 @@ export const InfoWidget = ({ title, value }) => {
 };
 
 export const CustomInfoWidget = ({ title, value }) => {
-  <div className="flex space-x-2 items-center justify-center my-2">
-    <p className="text-gray-700">{title}:-</p>
-    <div className="relative h-24 w-24">
-      <figure>
-        <Image
-          className="rounded border-none"
-          src={value}
-          fill
-          sizes="100vw"
-          alt=""
-        />
-      </figure>
+  return (
+    <div className="flex space-x-2 items-center justify-center my-2">
+      <p className="text-gray-700">{title}:-</p>
+      <div className="relative h-24 w-24">
+        <figure>
+          <Image
+            className="rounded border-none"
+            src={value}
+            fill
+            sizes="100vw"
+            alt=""
+          />
+        </figure>
+      </div>
     </div>
-  </div>;
+  );
 };
