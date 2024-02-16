@@ -21,6 +21,7 @@ const TopNav = () => {
                       style={{ objectFit: "cover" }}
                       width={150}
                       height={150}
+                      priority={true}
                       alt=""
                     />
                   </figure>
@@ -32,6 +33,7 @@ const TopNav = () => {
                       style={{ objectFit: "cover" }}
                       height={170}
                       width={170}
+                      priority={true}
                       alt=""
                     />
                   </figure>
