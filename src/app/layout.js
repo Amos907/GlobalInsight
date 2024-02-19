@@ -2,11 +2,13 @@
 
 import { useEffect } from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
-import { store } from "@/redux/store";
+import { store } from "src/redux/store";
 import { Provider } from "react-redux";
 
 import "@mantine/core/styles.css";
 import "./globals.css";
+
+// import RouterTransition from "./components/layout/router-transition";
 
 export default function RootLayout({ children }) {
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function RootLayout({ children }) {
       />
       <body>
         <MantineProvider>
+          {/* <RouterTransition /> */}
           <Provider store={store}>{children}</Provider>
         </MantineProvider>
       </body>

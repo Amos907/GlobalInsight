@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { Loader, Input } from "@mantine/core";
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchAllCountries } from "@/redux/features/countrySlice";
-import MainWrapper from "./components/main-wrapper";
-import RequestError from "./components/request-error";
+import { fetchAllCountries } from "src/redux/features/countrySlice";
+import MainWrapper from "./components/layout/containers/main-wrapper";
+import RequestError from "./components/layout/request-error";
+import CountryInfoWidget from "./components/home-page/country-info-widget";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -72,81 +71,23 @@ export default function Home() {
                 {filteredCountries.length > 0 ? (
                   <div className="grid grid-cols-2 gap-2 mx-1 md:grid-cols-4">
                     {filteredCountries.map((country) => (
-                      <div
-                        key={country.name.common}
-                        className="bg-white rounded-md p-2 border"
-                      >
-                        <div className="relative h-48 lg:h-56 mx-auto">
-                          <figure>
-                            <Image
-                              className="rounded border-none"
-                              src={country.flags.png}
-                              fill
-                              sizes="100vw"
-                              alt=""
-                            />
-                          </figure>
-                        </div>
-
-                        <div className="space-y-2 mt-2">
-                          <div className="max-h-20 text-center">
-                            <p className="text-sm font-sans font-semibold">
-                              {country.name.common}
-                            </p>
-                          </div>
-
-                          <div className="flex justify-center pb-2">
-                            <Link
-                              href={`/country/${country.name.common}?subregion=${country.subregion}`}
-                              className="pt-2"
-                            >
-                              <div className="bg-amber px-4 py-1 rounded-sm text-gray-700">
-                                View
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+                      <CountryInfoWidget
+                        key={country}
+                        name={country.name.common}
+                        flag={country.flags.png}
+                        subregion={country.subregion}
+                      />
                     ))}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 gap-2 mx-1 md:grid-cols-4">
                     {allCountries.map((country) => (
-                      <div
-                        key={country.name.common}
-                        className="bg-white rounded-md p-2 border"
-                      >
-                        <div className="relative h-48 lg:h-56 mx-auto">
-                          <figure>
-                            <Image
-                              className="rounded border-none"
-                              src={country.flags.png}
-                              fill
-                              sizes="100vw"
-                              alt=""
-                            />
-                          </figure>
-                        </div>
-
-                        <div className="space-y-2 mt-2">
-                          <div className="max-h-20 text-center">
-                            <p className="text-sm font-sans font-semibold">
-                              {country.name.common}
-                            </p>
-                          </div>
-
-                          <div className="flex justify-center pb-2">
-                            <Link
-                              href={`/country/${country.name.common}?subregion=${country.subregion}`}
-                              className="pt-2"
-                            >
-                              <div className="bg-amber px-4 py-1 rounded-sm text-gray-700">
-                                View
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+                      <CountryInfoWidget
+                        key={country}
+                        name={country.name.common}
+                        flag={country.flags.png}
+                        subregion={country.subregion}
+                      />
                     ))}
                   </div>
                 )}

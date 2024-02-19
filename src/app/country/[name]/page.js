@@ -10,12 +10,16 @@ import { useSearchParams } from "next/navigation";
 import {
   fetchCountry,
   fetchSubRegionCountries,
-} from "@/redux/features/countrySlice";
+} from "src/redux/features/countrySlice";
 
-import MainWrapper from "@/app/components/main-wrapper";
-import RequestError from "@/app/components/request-error";
-import { InfoWidget, CustomInfoWidget } from "@/app/components/info-widget";
-import HorizScrollContainer from "@/app/components/horiz-scroll-container";
+import MainWrapper from "src/app/components/layout/containers/main-wrapper";
+import RequestError from "src/app/components/layout/request-error";
+
+import {
+  InfoWidget,
+  CustomInfoWidget,
+} from "src/app/components/country-page/info-widget";
+import HorizScrollContainer from "src/app/components/layout/containers/horiz-scroll-container";
 
 const Country = ({ params }) => {
   const dispatch = useDispatch();

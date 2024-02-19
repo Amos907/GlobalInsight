@@ -1,5 +1,5 @@
 import React from "react";
-import TopNav from "./layout/top-nav";
+import TopNav from "../page-header/top-nav";
 
 const MainWrapper = ({ children }) => {
   return (
